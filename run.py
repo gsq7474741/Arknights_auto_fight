@@ -6,13 +6,6 @@ import screen_read
 import sim_tap
 
 
-# img5 = Image.open('test5.png')
-#
-# box_start = (1830, 967, 1890, 1020)
-# imgs = img5.crop(box_start)
-# imgs.show()
-
-
 def step(tap_coordinates, time_series):
     for i in range(len(time_series)):
         stp = tap_coordinates[i]
