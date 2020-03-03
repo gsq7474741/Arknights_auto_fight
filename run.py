@@ -1,11 +1,9 @@
-import sim_tap
-import screen_read
+import copy
 import json
 import time
-import copy
-import pandas as pd
-from PIL import Image
-import numpy as np
+
+import screen_read
+import sim_tap
 
 
 # img5 = Image.open('test5.png')
@@ -22,7 +20,7 @@ def step(tap_coordinates, time_series):
         yield stp
 
 
-def main():
+def main0():
     config = json.load(open('config.json', 'r'))
     count = config['pause']
     level_name = config['level']
@@ -52,7 +50,7 @@ def main():
     print('Finished All.')
 
 
-def main2():
+def main():
     config = json.load(open('config.json', 'r'))
     count = config['pause']
     level_name = config['level']
@@ -78,9 +76,13 @@ def main2():
                     print('Pre sleeping ' + str(config['preSleep']))
                 if stp[0] == 1917:
                     time.sleep(config['preSleep'])
+                    tryTimes = 0
                     while True:
+                        if tryTimes > 10:
+                            sim_tap.tap([1122, 100, 0], doimm=True)
                         scr = screen_read.Scrr()
                         if scr.ifEnd is False:
+                            tryTimes += 1
                             print(scr.ifEnd)
                             print('sleeping 7s')
                             time.sleep(7)
@@ -101,4 +103,4 @@ def main2():
 
 
 if __name__ == '__main__':
-    main2()
+    main()
